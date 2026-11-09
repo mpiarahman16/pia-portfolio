@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Pia Rahman, AI Product Manager and two-time co-founder in fintech.">
+<title>Pia Rahman Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a working ledger. Narrow reading column, wide bands for diagrams and tables; invoice aging buckets as the recurring motif. */
+:root{
+  --bg:#f5f7f6; --surface:#ffffff; --sunk:#eaefed; --fg:#14201f; --muted:#56635f; --line:#d3dcd8;
+  --accent:#0d6b62; --accent-soft:#d8ece8; --ink:#173a5c;
+  --paid:#2f7d4f; --due:#b7791f; --late:#b4442f;
+  --display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body:"IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f1514; --surface:#162020; --sunk:#1c2827; --fg:#e4ecea; --muted:#9aa9a5; --line:#2b3a38;
+  --accent:#5cc2b4; --accent-soft:#183a36; --ink:#9cc3e8; --paid:#6cc391; --due:#e0a94e; --late:#ec8a74; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1514; --surface:#162020; --sunk:#1c2827; --fg:#e4ecea; --muted:#9aa9a5; --line:#2b3a38;
+  --accent:#5cc2b4; --accent-soft:#183a36; --ink:#9cc3e8; --paid:#6cc391; --due:#e0a94e; --late:#ec8a74; color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--bg);color:var(--fg);font:16px/1.6 var(--body)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+a{color:var(--accent)}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.prose{max-width:66ch}
+h1,h2,h3{font-family:var(--display);line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.4rem,6vw,4rem);font-weight:700;letter-spacing:-.02em}
+h2{font-size:clamp(1.6rem,3.4vw,2.2rem);font-weight:700;letter-spacing:-.01em}
+h3{font-size:1.15rem;font-weight:500}
+p{margin:0}
+.eyebrow{font:500 .75rem/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.muted{color:var(--muted)}
+.mono{font-family:var(--mono)}
+
+/* nav */
+nav.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav.top .wrap{display:flex;gap:20px;align-items:center;justify-content:space-between;padding-block:12px;flex-wrap:wrap}
+nav.top .brand{font:700 1.05rem var(--display);color:var(--fg);text-decoration:none}
+nav.top ul{display:flex;gap:18px;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+nav.top ul a{color:var(--muted);text-decoration:none;font-size:.9rem}
+nav.top ul a:hover{color:var(--fg)}
+
+section{padding-block:72px;border-bottom:1px solid var(--line)}
+.stack{display:grid;gap:20px}
+.stack-lg{display:grid;gap:36px}
+
+/* hero */
+.hero{padding-block:64px 56px}
+.hero-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:48px;align-items:center}
+.hero-grid > *{min-width:0}
+.lede{font-size:1.15rem;color:var(--muted);max-width:56ch}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:500 .78rem var(--mono);padding:5px 10px;border:1px solid var(--line);border-radius:4px;background:var(--surface);color:var(--fg)}
+.links{display:flex;gap:16px;flex-wrap:wrap;font-weight:500}
+
+/* invoice card (hero demo) */
+.invoice{background:var(--surface);border:1px solid var(--line);border-radius:8px;box-shadow:0 18px 40px -24px rgba(10,40,40,.35);font-size:.9rem;overflow:hidden}
+.invoice header{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px dashed var(--line)}
+.invoice .id{font-family:var(--mono);font-size:.82rem;color:var(--muted)}
+.pill{font:500 .72rem var(--mono);text-transform:uppercase;letter-spacing:.06em;padding:3px 8px;border-radius:999px}
+.pill.late{background:color-mix(in srgb,var(--late) 15%,transparent);color:var(--late)}
+.pill.paid{background:color-mix(in srgb,var(--paid) 15%,transparent);color:var(--paid)}
+.pill.due{background:color-mix(in srgb,var(--due) 18%,transparent);color:var(--due)}
+.log{list-style:none;margin:0;padding:14px 18px;display:grid;gap:12px}
+.log li{display:grid;grid-template-columns:86px 1fr;gap:10px}
+.log .step{font:500 .72rem var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--accent);padding-top:2px}
+.invoice footer{display:flex;justify-content:space-between;padding:12px 18px;background:var(--sunk);font-family:var(--mono);font-size:.8rem;color:var(--muted)}
+
+/* aging bar motif */
+.aging{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;font:500 .72rem var(--mono)}
+.aging span{padding:6px 8px;border-radius:3px;color:var(--fg)}
+.aging span:nth-child(1){background:color-mix(in srgb,var(--paid) 22%,transparent)}
+.aging span:nth-child(2){background:color-mix(in srgb,var(--due) 22%,transparent)}
+.aging span:nth-child(3){background:color-mix(in srgb,var(--late) 20%,transparent)}
+.aging span:nth-child(4){background:color-mix(in srgb,var(--late) 36%,transparent)}
+
+/* proof strip */
+.proof{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+.proof div{padding:20px;border-right:1px solid var(--line)}
+.proof div:last-child{border-right:0}
+.proof b{display:block;font:700 1.9rem/1.1 var(--display);color:var(--ink);font-variant-numeric:tabular-nums}
+.proof span{font-size:.85rem;color:var(--muted)}
+
+/* case header */
+.case-head{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end}
+.case-head > *{min-width:0}
+.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;padding:18px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.facts dt{font:500 .72rem var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.facts dd{margin:4px 0 0;font-weight:500}
+
+.sub{display:grid;grid-template-columns:200px 1fr;gap:32px;padding-top:28px;border-top:1px solid var(--line)}
+.sub > *{min-width:0}
+.sub .label{position:sticky;top:72px;align-self:start}
+.sub .label h3{font-size:1.05rem}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.two > *{min-width:0}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.three > *{min-width:0}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:18px}
+.panel h4{margin:0 0 8px;font:600 .95rem var(--body)}
+ul.tight{margin:0;padding-left:1.1em;display:grid;gap:6px}
+.callout{border-left:3px solid var(--accent);background:var(--accent-soft);padding:16px 20px;border-radius:0 6px 6px 0;font-size:1.05rem}
+.note{font-size:.85rem;color:var(--muted)}
+
+/* tables */
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:.9rem;min-width:620px}
+th,td{text-align:left;vertical-align:top;padding:10px 14px;border-bottom:1px solid var(--line)}
+th{font:500 .72rem var(--mono);text-transform:uppercase;letter-spacing:.07em;color:var(--muted);background:var(--sunk)}
+tr:last-child td{border-bottom:0}
+
+/* journey */
+.journey{overflow-x:auto}
+.journey table{min-width:820px}
+.journey td:first-child,.journey th:first-child{font:500 .72rem var(--mono);text-transform:uppercase;letter-spacing:.07em;color:var(--muted);width:110px}
+
+/* 2x2 */
+.matrix{display:grid;grid-template-columns:28px 1fr 1fr;grid-template-rows:auto 1fr 1fr;gap:6px;max-width:720px}
+.matrix .ax{font:500 .7rem var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--muted);display:flex;align-items:center;justify-content:center}
+.matrix .ay{writing-mode:vertical-rl;transform:rotate(180deg)}
+.q{padding:14px;border-radius:6px;font-size:.88rem}
+.q b{display:block;font:500 .72rem var(--mono);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+.q1{background:color-mix(in srgb,var(--paid) 16%,var(--surface))}
+.q2{background:color-mix(in srgb,var(--due) 16%,var(--surface))}
+.q3{background:var(--sunk)}
+.q4{background:color-mix(in srgb,var(--late) 12%,var(--surface))}
+
+/* roadmap */
+.road{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.road > div{min-width:0;border-top:3px solid var(--accent);background:var(--surface);border-radius:0 0 6px 6px;padding:14px;border-left:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.road h4{margin:0 0 8px;font:600 .9rem var(--body)}
+.road .wk{font:500 .72rem var(--mono);color:var(--muted)}
+.road ul{margin:0;padding-left:1em;font-size:.88rem;display:grid;gap:4px}
+
+/* canvas */
+.canvas{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.canvas > div{min-width:0;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:14px;font-size:.86rem}
+.canvas h4{margin:0 0 6px;font:500 .7rem var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--accent)}
+.canvas .tall{grid-row:span 2}
+.canvas .wide{grid-column:span 5}
+.canvas .half{grid-column:span 5}
+@media (min-width:860px){.canvas .half{grid-column:span 2}.canvas .half.r{grid-column:span 3}}
+
+pre.mermaid{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:16px;overflow-x:auto;margin:0;text-align:center}
+
+/* project cards */
+.proj{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.proj article{min-width:0;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:20px;display:grid;gap:10px;align-content:start}
+.proj .k{display:flex;gap:18px;flex-wrap:wrap;font-family:var(--mono);font-size:.82rem;color:var(--ink)}
+
+.timeline{display:grid;gap:0}
+.timeline > div{display:grid;grid-template-columns:150px 1fr;gap:20px;padding:16px 0;border-bottom:1px solid var(--line)}
+.timeline > div > *{min-width:0}
+.timeline .when{font:500 .8rem var(--mono);color:var(--muted)}
+
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center}
+.copyrow{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+button{font:500 .85rem var(--body);background:var(--accent);color:var(--surface);border:0;border-radius:4px;padding:8px 14px;cursor:pointer}
+button:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+footer.site{padding-block:28px;font-size:.85rem;color:var(--muted)}
+
+@media (max-width:860px){
+  .hero-grid,.two,.contact{grid-template-columns:1fr}
+  .three,.proj{grid-template-columns:1fr}
+  .proof{grid-template-columns:1fr 1fr}
+  .proof div:nth-child(2){border-right:0}
+  .proof div:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .facts{grid-template-columns:1fr 1fr}
+  .sub{grid-template-columns:1fr;gap:14px}
+  .sub .label{position:static}
+  .road{grid-template-columns:1fr 1fr}
+  .canvas{grid-template-columns:1fr 1fr}
+  .canvas .wide,.canvas .half,.canvas .half.r{grid-column:span 2}
+  .canvas .tall{grid-row:auto}
+  .case-head{grid-template-columns:1fr}
+  .timeline > div{grid-template-columns:1fr;gap:4px}
+}
+@media (max-width:520px){
+  .road,.canvas{grid-template-columns:1fr}
+  .canvas .wide,.canvas .half,.canvas .half.r{grid-column:span 1}
+  nav.top ul{gap:12px}
+}
+</style>
+</head>
+<body>
+
+
+<nav class="top" aria-label="Sections">
+  <div class="wrap">
+    <a class="brand" href="#top">Pia Rahman</a>
+    <ul>
+      <li><a href="#knewsooner">KnewSooner</a></li>
+      <li><a href="#work">More work</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div class="stack">
+      <p class="eyebrow">AI Product Manager · Two-time co-founder</p>
+      <h1>Pia Rahman</h1>
+      <p class="lede">I build AI products for the back office of finance: the invoices, reconciliations and reporting that still run on email and Excel. Ten years across JPMorgan Chase, Northern Trust and BlackLine taught me where the work hides. Founding taught me to ship it.</p>
+      <div class="chips" aria-label="Focus areas">
+        <span class="chip">Agentic workflows</span><span class="chip">LLM evals</span><span class="chip">MCP</span><span class="chip">Fintech &amp; wealth</span><span class="chip">Pricing &amp; GTM</span>
+      </div>
+      <div class="links">
+        <a href="#knewsooner">Read the flagship case study ↓</a>
+        <a href="https://linkedin.com/in/pia-rahman" rel="noopener">LinkedIn ↗</a>
+        <a href="https://github.com/mpiarahman16" rel="noopener">GitHub ↗</a>
+      </div>
+    </div>
+
+    <aside class="invoice" aria-label="Example: KnewSooner answer scored against the eval rubric">
+      <header>
+        <div><strong>Newcomer question</strong><div class="id">Finance · Building credit</div></div>
+        <span class="pill paid">Passed</span>
+      </header>
+      <ol class="log">
+        <li><span class="step">Question</span><span>"I just moved to Toronto. How do I start building a credit history?"</span></li>
+        <li><span class="step">Answer</span><span>Explains secured cards and newcomer credit card programs, and links to the official source.</span></li>
+        <li><span class="step">Rubric</span><span>Accuracy ✓ · Relevance ✓ · Safety ✓ · Source cited ✓</span></li>
+        <li><span class="step">Fallback</span><span>Low-confidence answers point to the official program page instead of guessing.</span></li>
+      </ol>
+      <footer><span>Example, illustrative</span><span>Gold dataset eval</span></footer>
+    </aside>
+  </div>
+
+  <div class="wrap" style="padding-top:48px">
+    <div class="proof" aria-label="Results from my resume">
+      <div><b>+30%</b><span>AI answer accuracy in 8 weeks, driven by gold datasets and eval rubrics (KnewSooner)</span></div>
+      <div><b>12 wks</b><span>Research to first release, then +20% engagement in 3 months (KnewSooner)</span></div>
+      <div><b>−40%</b><span>Time to first connection after onboarding redesign (Your Village)</span></div>
+      <div><b>$500K</b><span>Annual cost cut on the MACD data project (BlackLine)</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- ========== KNEWSOONER ========== -->
+<section id="knewsooner">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <p class="eyebrow">Flagship case study · Shipped AI product</p>
+      <h2>KnewSooner: an AI guide to Canadian money for newcomers</h2>
+      <p class="prose muted">Newcomers to Canada have to open a bank account, build credit from zero, and understand taxes and benefits, usually in their second language. I own the vision, roadmap and requirements for the Finance section and its AI co-pilot.</p>
+    </div>
+
+    <dl class="facts">
+      <div><dt>Role</dt><dd>AI Senior PM, Co-founder</dd></div>
+      <div><dt>Since</dt><dd>Oct 2024</dd></div>
+      <div><dt>Team</dt><dd>Front-end, back-end, data science</dd></div>
+      <div><dt>Scope</dt><dd>Banking · credit · borrowing · taxes</dd></div>
+    </dl>
+
+    <div class="sub">
+      <div class="label"><h3>What I did</h3></div>
+      <div class="three">
+        <div class="panel"><h4>Discovery &amp; scope</h4><p class="note">Researched competitors and newcomer questions, then structured the section around what people need first: ID requirements, account setup, fees, building credit, taxes, benefits and pay.</p></div>
+        <div class="panel"><h4>Evals before scale</h4><p class="note">Directed data scientists to build gold datasets and rubrics scoring answers for accuracy, relevance and safety on banking, credit and tax questions.</p></div>
+        <div class="panel"><h4>Delivery &amp; pricing</h4><p class="note">Ran sprint planning, technical requirements and API specs; led pricing work aligned to customer needs and competitors.</p></div>
+      </div>
+    </div>
+
+    <div class="sub">
+      <div class="label"><h3>Results</h3></div>
+      <div class="proof">
+        <div><b>12 wks</b><span>To first release</span></div>
+        <div><b>+20%</b><span>Engagement within 3 months</span></div>
+        <div><b>+30%</b><span>Answer accuracy within 8 weeks</span></div>
+        <div><b>+25%</b><span>Sprint delivery predictability over 4 months</span></div>
+      </div>
+    </div>
+
+    <div class="sub">
+      <div class="label"><h3>When not to trust the model</h3></div>
+      <p class="prose">Money questions have real consequences for someone new to the system. Answers about tax obligations, credit products and fees are checked against the rubric, cite their source, and point to the official program or bank page instead of improvising when the model's confidence is low.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== MORE WORK ========== -->
+<section id="work">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <p class="eyebrow">More work</p>
+      <h2>Products, prototypes and platform work</h2>
+    </div>
+    <div class="proj">
+      <article>
+        <p class="eyebrow">Your Village · Co-founder, Technical PM · 2023–2024</p>
+        <h3>AI-assisted onboarding that gets people connected faster</h3>
+        <p class="note">Wrote onboarding requirements and user stories, then iterated the flow with designers to remove friction for first-time users.</p>
+        <div class="k"><span>−40% time to first connection</span><span>+20% week-one retention</span></div>
+      </article>
+      <article>
+        <p class="eyebrow">Prototype · Built with Claude &amp; Claude Code</p>
+        <h3>Risk Lens</h3>
+        <p class="note">A working prototype I built myself with AI coding tools to test the idea with users before asking engineers for a sprint.</p>
+        <div class="k"><a href="https://mpiarahman16.github.io/risklens/" rel="noopener">mpiarahman16.github.io/risklens ↗</a></div>
+      </article>
+      <article>
+        <p class="eyebrow">Built with Claude &amp; Claude Code</p>
+        <h3>Prototypes on GitHub</h3>
+        <p class="note">Working prototypes I build myself with AI coding tools to test ideas with users before asking engineers for a sprint.</p>
+        <div class="k"><a href="https://github.com/mpiarahman16" rel="noopener">github.com/mpiarahman16 ↗</a></div>
+      </article>
+      <article>
+        <p class="eyebrow">BlackLine · Technical PM · 2021–2023</p>
+        <h3>Data products for a fintech accounting platform</h3>
+        <p class="note">Owned the R&amp;D technical roadmap and turned customer insight into specs for data science, including the Tax Heat Map launch. Partnered with engineering on the MACD project. Led the integration that took the acquired FourQ intercompany product through SAP certification.</p>
+        <div class="k"><span>$500K/yr cost reduction</span><span>Contributed to 30% sales growth (2021)</span></div>
+      </article>
+      <article>
+        <p class="eyebrow">Estée Lauder · Lead Product Owner · 2020–2021</p>
+        <h3>Enterprise rollout of Braze customer engagement</h3>
+        <p class="note">Aligned 60+ stakeholders across marketing, compliance, engineering and operations; prioritized Braze APIs and SDKs and owned the backlog.</p>
+        <div class="k"><span>−30% costs in 6 months</span><span>+10% team productivity</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ========== EXPERIENCE ========== -->
+<section id="experience">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <p class="eyebrow">Experience</p>
+      <h2>Where I learned how financial operations really work</h2>
+      <p class="prose muted">Before product, I sat next to fund controllers and regulatory reporters. That's why I build for the people doing month-end, not just the people buying software.</p>
+    </div>
+    <div class="timeline">
+      <div><span class="when">2024 – now</span><span><strong>KnewSooner</strong>, co-founder and AI Senior PM</span></div>
+      <div><span class="when">2023 – 2024</span><span><strong>Your Village</strong>, co-founder and Technical PM</span></div>
+      <div><span class="when">2021 – 2023</span><span><strong>BlackLine</strong>, Technical PM, Westport CT</span></div>
+      <div><span class="when">2020 – 2021</span><span><strong>Estée Lauder</strong>, Lead Product Owner, New York</span></div>
+      <div><span class="when">2019 – 2020</span><span><strong>Chateaux</strong>, Business Analyst, Norwalk CT</span></div>
+      <div><span class="when">2018 – 2019</span><span><strong>JPMorgan Chase Wealth Management</strong>, AVP, Collateral Risk Regulatory Reporting. Defined Regulation W and U data requirements and cut the reporting cycle 20%; launched an Alteryx analytics platform for near-real-time reconciliation.</span></div>
+      <div><span class="when">2014 – 2018</span><span><strong>Northern Trust</strong>, Analyst, Collateral Management. Led offshore development of new financial reporting features; helped win Bridgewater Associates' business.</span></div>
+    </div>
+    <p class="note">MPS, Technology Management, Georgetown University · BS, Business &amp; Technology, University of Connecticut · CSPO, CSM, SAFe Agilist · Full Stack Developer certificate (UConn) · Product Management (Cornell)</p>
+  </div>
+</section>
+
+<!-- ========== CONTACT ========== -->
+<section id="contact" style="border-bottom:0">
+  <div class="wrap contact">
+    <div class="stack">
+      <p class="eyebrow">Contact</p>
+      <h2>Let's talk about your back office.</h2>
+      <p class="muted">Based in Connecticut, working in New York and remote.</p>
+    </div>
+    <div class="stack">
+      <div class="copyrow">
+        <span class="mono" id="email">mp.rahman.pm@gmail.com</span>
+        <button type="button" id="copyBtn">Copy email</button>
+        <span class="note" id="copyMsg" aria-live="polite"></span>
+      </div>
+      <a href="https://linkedin.com/in/pia-rahman" rel="noopener">linkedin.com/in/pia-rahman ↗</a>
+      <a href="https://github.com/mpiarahman16" rel="noopener">github.com/mpiarahman16 ↗</a>
+    </div>
+  </div>
+</section>
+
+<footer class="site"><div class="wrap">© 2026 Pia Rahman</div></footer>
+
+<script>
+document.getElementById('copyBtn').addEventListener('click', function(){
+  var t = document.getElementById('email').textContent, m = document.getElementById('copyMsg');
+  function fallback(){ var r=document.createRange(); r.selectNodeContents(document.getElementById('email')); var s=getSelection(); s.removeAllRanges(); s.addRange(r); m.textContent='Selected. Press Ctrl/Cmd+C.'; }
+  try { navigator.clipboard.writeText(t).then(function(){ m.textContent='Copied'; }, fallback); } catch(e){ fallback(); }
+});
+</script>
+
+</body>
+</html>
